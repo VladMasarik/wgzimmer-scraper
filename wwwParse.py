@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import notify2 as pynotify
+import os
 
+
+duration = 5  # seconds
+freq = 440  # Hz
 f = open("xxx","r")
 cont = f.read()
 
@@ -20,7 +24,7 @@ f2 = open("savedLinks","r")
 cont2 = f2.read()
 
 pynotify.init("Test")
-notice = pynotify.Notification("testtt", "Nothing NEW")
+# notice = pynotify.Notification("testtt", "Nothing NEW")
 if cont2 != save:
     f2.close()
     f2 = open("savedLinks", "w+")
@@ -28,5 +32,6 @@ if cont2 != save:
     print("NOT SAME!")
 
     notice = pynotify.Notification("testtt", "The WGZIMMER is updated.")
-notice.set_timeout(pynotify.EXPIRES_NEVER)
-notice.show()
+    notice.set_timeout(pynotify.EXPIRES_NEVER)
+    notice.show()
+    os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
